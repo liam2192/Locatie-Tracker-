@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locatie Tracker</title>
+</head>
+<body>
+    <h1>Druk op de knop om je locatie op te halen</h1>
+    <button onclick="getLocation()">Mijn Locatie</button>
+    <p id="output"></p>
+
+    <script>
+        function sendLocation(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            document.getElementById("output").innerText = 
+                `Jouw locatie is:\nLatitude: ${latitude}\nLongitude: ${longitude}`;
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(sendLocation, (error) => {
+                    document.getElementById("output").innerText = 
+                        "Kan locatie niet ophalen. Zorg ervoor dat je locatie is ingeschakeld.";
+                });
+            } else {
+                document.getElementById("output").innerText = 
+                    "Geolocatie wordt niet ondersteund door jouw browser.";
+            }
+        }
+    </script>
+</body>
+</html>
